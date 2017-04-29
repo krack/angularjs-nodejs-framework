@@ -1,0 +1,15 @@
+{
+  "name": "angularjs-nodejs-framework",
+  "version": "0.0.1",
+  "description": "My framework for siteweb with angularjs and nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "test"
+  },
+  "author": "krack",
+  "license": "ISC"
+}
