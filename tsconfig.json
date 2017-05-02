@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "baseUrl": "",
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "module": "es2015",
         "target": "es5",
         "emitDecoratorMetadata": true,

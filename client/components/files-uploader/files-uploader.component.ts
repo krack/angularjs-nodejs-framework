@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Http, Response, Headers, RequestOptions }          from '@angular/http';
 import {DomSanitizer} from '@angular/platform-browser';
-import { UUID } from 'angular2-uuid'
-import { FileUploader, FileSelectDirective} from 'ng2-file-upload'
+import { UUID } from 'angular2-uuid';
+import { FileUploader, FileSelectDirective} from 'ng2-file-upload';
 
-import {File} from '../file'
+import {File} from './file';
 
 @Component({
   selector: 'files-uploader',
@@ -19,7 +19,7 @@ export class FilesUploaderComponent implements OnInit {
   @Input() readonly: boolean;
 
   private uploader:FileUploader;
-  private uuid ;
+  private uuid:UUID;
   protected options:RequestOptions;
 
   constructor(private http:Http, private domSanitizer:DomSanitizer) { 
@@ -49,7 +49,7 @@ export class FilesUploaderComponent implements OnInit {
       event.preventDefault();
   }
 
-  private photoURL(url) {
+  private photoURL(url:string) {
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
