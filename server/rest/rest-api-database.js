@@ -319,6 +319,7 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 	function registerSubFieldFile(truc){
 		var name = truc.name;
 		var storageContainer = truc.container;
+		var deleteOnServer = truc.deleteOnServer;
 
 		//POST /:id/name/
 		app.post(config.baseApi+':id/'+name+'/', function(req, res) {
@@ -418,25 +419,32 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 				}
 				else{
 					var fileId = req.params.fileId;
-
-					var download= storageClient.removeFile(storageContainer,fileId, function(err){
-						if (err) {
-							res.json({error_code:0,err_desc:err.message});
-						}else {
-							var index = -1;
-							for(var i = 0; i < object[name].length;i++){
-								if(object[name][i]._id === fileId){
-									index = i;
-								}
-							}
-							if(index != -1){
-							    object[name].splice(index, 1);
-								object.save(function(err) {
-						        	res.json({error_code:0,err_desc:null});
-								});
+					function removeOnData(){
+						var index = -1;
+						for(var i = 0; i < object[name].length;i++){
+							if(object[name][i]._id === fileId){
+								index = i;
 							}
 						}
-					});
+						if(index != -1){
+						    object[name].splice(index, 1);
+							object.save(function(err) {
+					        	res.json({error_code:0,err_desc:null});
+							});
+						}
+					}
+
+					if(deleteOnServer){
+						removeOnData();
+					}else{
+						var download= storageClient.removeFile(storageContainer,fileId, function(err){
+							if (err) {
+								res.json({error_code:0,err_desc:err.message});
+							}else {
+								removeOnData();								
+							}
+						});
+					}
 		   		}
 		   	});
 
