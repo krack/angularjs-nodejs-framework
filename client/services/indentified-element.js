@@ -1,0 +1,1 @@
+//# sourceMappingURL=/home/krack/projects/angularjs-nodejs-framework/client/services/indentified-element.js.map
