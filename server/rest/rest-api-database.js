@@ -435,8 +435,6 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 					}
 
 					if(deleteOnServer){
-						removeOnData();
-					}else{
 						var download= storageClient.removeFile(storageContainer,fileId, function(err){
 							if (err) {
 								res.json({error_code:0,err_desc:err.message});
@@ -444,6 +442,8 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 								removeOnData();								
 							}
 						});
+					}else{
+						deleteOnServer();
 					}
 		   		}
 		   	});
