@@ -270,7 +270,9 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 			var structure = modelStructure[i];
 			if(structure.type === "String"){
 				shemaConfiguration[structure.name] = structure.type;
-			}if(structure.type === "Boolean"){
+			}else if(structure.type === "Boolean"){
+				shemaConfiguration[structure.name] = structure.type;
+			}else if(structure.type === "Number"){
 				shemaConfiguration[structure.name] = structure.type;
 			}else if(structure.type === "Files"){
 				shemaConfiguration[structure.name] = [{ _id: 'string',  href: 'string'}];

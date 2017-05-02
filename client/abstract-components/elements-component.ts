@@ -11,13 +11,15 @@ import { ErrorComponent } from './error-component';
 
 
 export class ElementComponent<T extends IdentifiedElement> extends ErrorComponent  implements OnInit {
+  protected baseView:String;
   protected listOfElement: T[]
   protected element: T;
   protected crudService : CrudService<T>;
 
-  constructor (serviceCrud: CrudService<T>, router:Router, private route: ActivatedRoute) {
+  constructor (baseView: String, serviceCrud: CrudService<T>, router:Router, private route: ActivatedRoute) {
     super(router);
     this.crudService = serviceCrud;
+    this.baseView = baseView;
   }
   
   ngOnInit() { 
@@ -47,7 +49,7 @@ export class ElementComponent<T extends IdentifiedElement> extends ErrorComponen
     }else {
       this.crudService.add(this.element)
       .subscribe(
-        element => this.router.navigate(['/bet/'+element._id]),
+        element => this.router.navigate([this.baseView+'/'+element._id]),
         error=> this.manageError(error)
       );
     }
