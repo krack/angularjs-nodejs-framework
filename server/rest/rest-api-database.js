@@ -432,7 +432,7 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 					        	res.json({error_code:0,err_desc:null});
 							});
 						}
-					}
+					};
 
 					if(deleteOnServer){
 						var download= storageClient.removeFile(storageContainer,fileId, function(err){
@@ -443,7 +443,7 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 							}
 						});
 					}else{
-						deleteOnServer();
+						removeOnData();
 					}
 		   		}
 		   	});
