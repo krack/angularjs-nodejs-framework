@@ -16,7 +16,7 @@ export class ElementComponent<T extends IdentifiedElement> extends ErrorComponen
   protected element: T;
   protected crudService : CrudService<T>;
 
-  constructor (baseView: String, serviceCrud: CrudService<T>,protected router:Router, private route: ActivatedRoute) {
+  constructor (baseView: String, serviceCrud: CrudService<T>, router:Router, protected route: ActivatedRoute) {
     super(router);
     this.crudService = serviceCrud;
     this.baseView = baseView;

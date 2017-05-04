@@ -13,7 +13,6 @@ var ElementComponent = (function (_super) {
     __extends(ElementComponent, _super);
     function ElementComponent(baseView, serviceCrud, router, route) {
         var _this = _super.call(this, router) || this;
-        _this.router = router;
         _this.route = route;
         _this.crudService = serviceCrud;
         _this.baseView = baseView;

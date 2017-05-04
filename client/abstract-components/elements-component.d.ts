@@ -4,8 +4,7 @@ import { CrudService } from '../services/crud-service.service';
 import { IdentifiedElement } from '../services/indentified-element';
 import { ErrorComponent } from './error-component';
 export declare class ElementComponent<T extends IdentifiedElement> extends ErrorComponent implements OnInit {
-    protected router: Router;
-    private route;
+    protected route: ActivatedRoute;
     protected baseView: String;
     protected listOfElement: T[];
     protected element: T;
