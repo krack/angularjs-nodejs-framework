@@ -11,10 +11,12 @@ var __extends = (this && this.__extends) || (function () {
 import { ErrorComponent } from './error-component';
 var ElementComponent = (function (_super) {
     __extends(ElementComponent, _super);
-    function ElementComponent(serviceCrud, router, route) {
+    function ElementComponent(baseView, serviceCrud, router, route) {
         var _this = _super.call(this, router) || this;
+        _this.router = router;
         _this.route = route;
         _this.crudService = serviceCrud;
+        _this.baseView = baseView;
         return _this;
     }
     ElementComponent.prototype.ngOnInit = function () {
@@ -37,7 +39,7 @@ var ElementComponent = (function (_super) {
         }
         else {
             this.crudService.add(this.element)
-                .subscribe(function (element) { return _this.router.navigate(['/bet/' + element._id]); }, function (error) { return _this.manageError(error); });
+                .subscribe(function (element) { return _this.router.navigate([_this.baseView + '/' + element._id]); }, function (error) { return _this.manageError(error); });
         }
     };
     ElementComponent.prototype.deleteElement = function (event) {
