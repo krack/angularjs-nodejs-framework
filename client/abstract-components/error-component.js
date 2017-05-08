@@ -3,7 +3,7 @@ var ErrorComponent = (function () {
         this.router = router;
     }
     ErrorComponent.prototype.manageError = function (status) {
-        if (status === '401') {
+        if (status == '401') {
             this.router.navigate(['/login']);
         }
         else {

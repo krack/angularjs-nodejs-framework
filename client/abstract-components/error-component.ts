@@ -12,7 +12,7 @@ export class ErrorComponent {
   
 
   protected manageError(status:String){
-    if(status === '401'){
+    if(status == '401'){
       this.router.navigate(['/login']);
     }else{
       console.log("error "+status);
