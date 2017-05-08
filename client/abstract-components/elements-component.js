@@ -8,6 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+import { Observable } from 'rxjs/Observable';
 import { ErrorComponent } from './error-component';
 var ElementComponent = (function (_super) {
     __extends(ElementComponent, _super);
@@ -22,14 +23,20 @@ var ElementComponent = (function (_super) {
     };
     ElementComponent.prototype.initElementFromUrlParameter = function () {
         var _this = this;
-        this.route.params.subscribe(function (params) {
-            var id = params['id'];
-            if (id) {
-                _this.crudService.getById(id)
-                    .subscribe(function (element) { return _this.element = element; }, function (error) { return _this.manageError(error); });
-            }
+        return new Observable(function (observer) {
+            _this.route.params.subscribe(function (params) {
+                var id = params['id'];
+                if (id) {
+                    _this.crudService.getById(id)
+                        .subscribe(function (element) {
+                        _this.element = element;
+                        observer.next(null);
+                    }, function (error) { return _this.manageError(error); });
+                }
+            });
         });
     };
+    ;
     ElementComponent.prototype.saveElement = function () {
         var _this = this;
         if (this.element._id) {

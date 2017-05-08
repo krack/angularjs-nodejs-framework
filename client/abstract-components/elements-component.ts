@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 
 import { CrudService } from '../services/crud-service.service';
 import { IdentifiedElement } from '../services/indentified-element';
@@ -25,18 +26,24 @@ export class ElementComponent<T extends IdentifiedElement> extends ErrorComponen
   ngOnInit() { 
   }
 
-  initElementFromUrlParameter() {
-    this.route.params.subscribe((params: Params) => {
-      let id = params['id']
-      if(id){
-        this.crudService.getById(id)
-        .subscribe(
-          (element: T) => this.element = element,
-          error=> this.manageError(error)
-          );
+  initElementFromUrlParameter():Observable<any> {
+
+   return new Observable(observer => {
+      this.route.params.subscribe((params: Params) => {
+        let id = params['id']
+        if(id){
+          this.crudService.getById(id)
+          .subscribe(
+            (element: T) =>{
+              this.element = element;
+              observer.next(null);
+            },
+            error=> this.manageError(error)
+           );
         }
+      });
     });
-  }
+  };
 
 
   saveElement() {
