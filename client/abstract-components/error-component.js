@@ -7,7 +7,7 @@ var ErrorComponent = (function () {
             this.router.navigate(['/login']);
         }
         else {
-            this.router.navigate(['/login']);
+            console.log("error " + status);
         }
     };
     return ErrorComponent;
