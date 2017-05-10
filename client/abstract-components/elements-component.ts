@@ -18,7 +18,7 @@ export class ElementComponent<T extends IdentifiedElement> extends ErrorComponen
   protected crudService : CrudService<T>;
 
   constructor (baseView: String, serviceCrud: CrudService<T>, router:Router, protected route: ActivatedRoute) {
-    super(router);
+    super(router, route);
     this.crudService = serviceCrud;
     this.baseView = baseView;
   }
@@ -50,7 +50,7 @@ export class ElementComponent<T extends IdentifiedElement> extends ErrorComponen
     if(this.element._id){
       this.crudService.updateElement(this.element)
       .subscribe(
-        element => console.log("ok"),
+          element => console.log("ok"),
           error=> this.manageError(error)
         );
     }else {

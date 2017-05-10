@@ -11,8 +11,8 @@ var __extends = (this && this.__extends) || (function () {
 import { ErrorComponent } from './error-component';
 var ListElements = (function (_super) {
     __extends(ListElements, _super);
-    function ListElements(serviceCrud, router) {
-        var _this = _super.call(this, router) || this;
+    function ListElements(serviceCrud, router, route) {
+        var _this = _super.call(this, router, route) || this;
         _this.crudService = serviceCrud;
         return _this;
     }

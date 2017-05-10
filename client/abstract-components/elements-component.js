@@ -13,7 +13,7 @@ import { ErrorComponent } from './error-component';
 var ElementComponent = (function (_super) {
     __extends(ElementComponent, _super);
     function ElementComponent(baseView, serviceCrud, router, route) {
-        var _this = _super.call(this, router) || this;
+        var _this = _super.call(this, router, route) || this;
         _this.route = route;
         _this.crudService = serviceCrud;
         _this.baseView = baseView;
