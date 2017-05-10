@@ -1,11 +1,10 @@
 var ErrorComponent = (function () {
-    function ErrorComponent(router, route) {
+    function ErrorComponent(router) {
         this.router = router;
-        this.route = route;
     }
     ErrorComponent.prototype.manageError = function (status) {
         if (status == '401') {
-            console.log(this.route);
+            localStorage.setItem('last-url-error', this.router.url);
             this.router.navigate(['/login']);
         }
         else {

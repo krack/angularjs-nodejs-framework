@@ -1,7 +1,6 @@
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 export declare class ErrorComponent {
     protected router: Router;
-    protected route: ActivatedRoute;
-    constructor(router: Router, route: ActivatedRoute);
+    constructor(router: Router);
     protected manageError(status: String): void;
 }

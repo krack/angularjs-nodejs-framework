@@ -13,8 +13,8 @@ export class ListElements<T extends IdentifiedElement> extends ErrorComponent im
   private elements: T[];
   protected crudService : CrudService<T>;
 
-  constructor (serviceCrud: CrudService<T>, router:Router, route: ActivatedRoute) {
-    super(router,route);
+  constructor (serviceCrud: CrudService<T>, router:Router) {
+    super(router);
     this.crudService = serviceCrud;
   }
   
