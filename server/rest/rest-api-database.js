@@ -277,6 +277,8 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 			}else if(structure.type === "Files"){
 				shemaConfiguration[structure.name] = [{ _id: 'string',  href: 'string'}];
 				filesApi.push(structure);
+			}else if(structure.type === "List"){
+				shemaConfiguration[structure.name] = [extractShema(structure.shema)];
 			}else if(structure.type === "Object"){
 				shemaConfiguration[structure.name] = extractShema(structure.shema);
 			}else{
