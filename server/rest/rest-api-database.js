@@ -36,6 +36,45 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 		;
 		return false;
 	}
+
+	function isFieldSecurityGood(objectChecked, objectSaved, principal){
+		if(principal){
+			if(!objectSaved){
+				var structure = modelStructure[i];
+				for(var i = 0; i < modelStructure.length; i++){
+					var structure = modelStructure[i];	
+					if(!!structure.restrictUpdate){		
+						return false;
+					}else if(structure.restrictUpdate && structure.restrictUpdate.indexOf("o") !==-1 && principal.owner){
+						return false;
+					}else if(structure.restrictUpdate && structure.restrictUpdate.indexOf("a") !==-1 && principal.administrator){
+						return false;
+					}
+				}
+				return true;
+			}else{
+				var structure = modelStructure[i];
+				for(var i = 0; i < modelStructure.length; i++){
+					var structure = modelStructure[i];
+				
+					if(objectChecked[structure.name] !== objectSaved[structure.name]){
+						if(!!structure.restrictUpdate){		
+							return false;
+						}else if(structure.restrictUpdate && structure.restrictUpdate.indexOf("o") !==-1 && principal.owner){
+							return false;
+						}else if(structure.restrictUpdate && structure.restrictUpdate.indexOf("a") !==-1 && principal.administrator){
+							return false;
+						}
+					}
+				}
+			
+				return true;
+			}
+		}else{
+			return true;
+		}
+	}
+
 	var service = {
 		"getAll": function(principal){
 			return new Promise(function (fulfill, reject){
@@ -43,13 +82,11 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 					if (err){
 						reject(500);
 					}else{
-						console.log("getAll"+principal);
 						if(principal){
 				    		list= list.filter(function(element){
 				    			return isGoodForSecurity(element, principal, "r");
 				    		});
 				    	}
-						console.log(list);
 						fulfill(list);
 					}
 				});
@@ -89,13 +126,15 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 		},
 
 		
-		"create": function(object){
+		"create": function(object, principal){
 			return new Promise(function (fulfill, reject){
 				var keys = Object.keys(shemaConfiguration);
 				var data = updateObject({}, object);
 				model.create(data, function(err, objectCreated) {
 					if (err){
 						reject(500);
+					}else if(principal && !isFieldSecurityGood(object, null, principal)){
+						reject(403);
 					}else{
 						fulfill(objectCreated);
 					}
@@ -106,10 +145,9 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 			return new Promise(function (fulfill, reject){
 				var keys = Object.keys(shemaConfiguration);
 				model.findById(id, function(err, objectFound) {
-				console.log("update "+id);
 					if (!objectFound){
 						reject(404);
-					}else if(principal && !isGoodForSecurity(objectFound, principal, "w")){
+					}else if(principal && !isGoodForSecurity(objectFound, principal, "w") && !isFieldSecurityGood(object, objectFound, principal)){
 						reject(403);
 					}else {
 						var keys = Object.keys(object);

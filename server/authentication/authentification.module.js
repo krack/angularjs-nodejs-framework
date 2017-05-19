@@ -20,10 +20,36 @@ module.exports = function init(configuration, app) {
 	app.use(passport.session());
 	app.use(cookieParser());
 
+	function securityFunction (req, res, next) {
+		if (req.isAuthenticated()) {
+			serviceUser.find({"facebookId": req.user.id}).then(function(users){
+				if(users.length > 0){
+					req.principal= users[0];
+					return next();
+				}else{
+					res.sendStatus(401);
+				}
+			});
+			
+		}else{
+			res.sendStatus(401);
+		}
+	}
+
 	var userModel = [
 		{
 			"name": "displayName",
 			"type": "String"
+		},
+		{
+			"name": "owner",
+			"type": "Boolean",
+			"restrictUpdate": ""
+		},
+		{
+			"name": "administrator",
+			"type": "Boolean",
+			"restrictUpdate": "o"
 		}
 	];
 
@@ -41,7 +67,7 @@ module.exports = function init(configuration, app) {
 		"shema": 'users'
 	}
 	
-	var serviceUser = configureAPI(configApp, userModel, app);
+	var serviceUser = configureAPI(configApp, userModel, app, null, securityFunction);
 
 
 
@@ -62,16 +88,29 @@ module.exports = function init(configuration, app) {
 		app.get('/auth/facebook', passport.authenticate('facebook', { authType: 'rerequest', scope: ['user_friends'] }));
 		app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req, res) {
 				serviceUser.find({"facebookId": req.user.id}).then(function(users){
-					if(!users.length){
-						serviceUser.create({
-							"facebookId": req.user.id,
-							"displayName" : req.user.displayName
-						}).then(function(user){
-							res.redirect(302, configuration.redirectUrl);
-						});
-					}else {				
-						res.redirect(302, configuration.redirectUrl);
-					}
+					serviceUser.find({"owner": "true"}).then(function(owners){
+						var hasOwner = owners.length !==0;
+						if(!users.length){
+							serviceUser.create({
+								"facebookId": req.user.id,
+								"displayName" : req.user.displayName,
+								"owner": !hasOwner,
+								"administrator": false;
+							}).then(function(user){
+								res.redirect(302, configuration.redirectUrl);
+							});
+						}else {	
+							if(!hasOwner){
+								var user = users[0];
+								user.owner = true;
+								serviceUser.update(user._id, user).then(function(user){
+									res.redirect(302, configuration.redirectUrl);
+								});
+							}else{			
+								res.redirect(302, configuration.redirectUrl);
+							}
+						}
+					});
 
 				});
 				
@@ -96,23 +135,7 @@ module.exports = function init(configuration, app) {
 		}
 	});
 
-	function securityFunction (req, res, next) {
-		if (req.isAuthenticated()) {
-			serviceUser.find({"facebookId": req.user.id}).then(function(users){
-				console.log("users "+users)
-				if(users.length > 0){
-					console.log("principal define : "+users[0]._id);
-					req.principal= users[0];
-					return next();
-				}else{
-					res.sendStatus(401);
-				}
-			});
-			
-		}else{
-			res.sendStatus(401);
-		}
-	}
+
 
 	return {
 		"securityFunction" :securityFunction
