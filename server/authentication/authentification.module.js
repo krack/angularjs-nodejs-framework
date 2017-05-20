@@ -20,7 +20,7 @@ module.exports = function init(configuration, app) {
 	app.use(passport.session());
 	app.use(cookieParser());
 
-	function securityFunction (req, res, next) {
+	function checkConnectedFunction (req, res, next) {
 		if (req.isAuthenticated()) {
 			serviceUser.find({"facebookId": req.user.id}).then(function(users){
 				if(users.length > 0){
@@ -64,10 +64,14 @@ module.exports = function init(configuration, app) {
 
 	var configApp = {
 		"baseApi" : "/api/users/",
-		"shema": 'users'
+		"shema": 'users',
+		"api" : {
+			"delete": "a",
+			"get": "m",
+		}
 	}
 	
-	var serviceUser = configureAPI(configApp, userModel, app, null, securityFunction);
+	var serviceUser = configureAPI(configApp, userModel, app, checkConnectedFunction, null);
 
 
 
@@ -95,7 +99,7 @@ module.exports = function init(configuration, app) {
 								"facebookId": req.user.id,
 								"displayName" : req.user.displayName,
 								"owner": !hasOwner,
-								"administrator": false;
+								"administrator": false
 							}).then(function(user){
 								res.redirect(302, configuration.redirectUrl);
 							});
@@ -138,7 +142,7 @@ module.exports = function init(configuration, app) {
 
 
 	return {
-		"securityFunction" :securityFunction
+		"checkConnectedFunction" :checkConnectedFunction
 	}
 
 };

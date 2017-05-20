@@ -1,6 +1,6 @@
 
 
-module.exports = function init(config, modelStructure, app, storageClient, securityFunction) {
+module.exports = function init(config, modelStructure, app, checkConnectedFunction, storageClient) {
 	var mongoose = require('mongoose');
 	var Schema = mongoose.Schema;
 	var multer = require('multer');
@@ -180,29 +180,69 @@ module.exports = function init(config, modelStructure, app, storageClient, secur
 		} 
 	};
 
-	//GET /
-	if(securityFunction){
-		app.get(config.baseApi, securityFunction, function(req, res) {
-			console.log("GET "+config.baseApi+"--"+req.principal);
-			service.getAll(req.principal).then(function(list){
-					res.json(list);
-				}, 
-				function(error){
-					res.sendStatus(error);
-				}
-			);		
-		});
-	}else{
-		app.get(config.baseApi, function(req, res) {
-			service.getAll().then(function(list){
-					res.json(list);
-				}, 
-				function(error){
-					res.sendStatus(error);
-				}
-			);		
-		});
+	function checkRightForApi(req, res, next){
+		if(config.api){
+			if(req.principal){
+				var rights = config.api[req.method.toLowerCase()];
+				if(rights){
+					if(rights.indexOf("o") !== -1 && req.principal.owner){
+						return next();
+					}else if(rights.indexOf("a") !== -1 && req.principal.administrator){
+						return next();
+					}else if(rights.indexOf("m") !== -1){
+						return next();
+					}else{
+						res.sendStatus(403);
+					}
+				}else{
+					res.sendStatus(404);
+				}				
+			}else{
+				res.sendStatus(401);
+			}
+		}else{
+			return next();
+		}	
 	}
+
+	function declareIfNecessary(rightType, path, declarationFunction){
+		//if has configuration api use this, else declare !
+		if(checkConnectedFunction){
+			if(config.api){
+				//declare only if type is declared
+				if(config.api[rightType]){
+					app[rightType](path, checkConnectedFunction, checkRightForApi, function(req, res){
+						declarationFunction(req, res);
+					});
+				}else{
+					//not declared
+				}
+			}else{
+				app[rightType](path, function(req, res){
+					declarationFunction(req, res);
+				});
+			}
+		}else{
+			app[rightType](path, function(req, res){
+				declarationFunction(req, res);
+			});
+		}
+	}
+
+
+	//GET /
+	declareIfNecessary("get", config.baseApi, function(req, res){
+		console.log("GET "+config.baseApi);
+		service.getAll().then(function(list){
+				res.json(list);
+			}, 
+			function(error){
+				console.log("error " +error);
+				res.sendStatus(error);
+			}
+		);
+	});
+	
 
 	//GET /:id
 	if(securityFunction){
