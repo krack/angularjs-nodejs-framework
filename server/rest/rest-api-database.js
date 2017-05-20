@@ -245,87 +245,49 @@ module.exports = function init(config, modelStructure, app, checkConnectedFuncti
 	
 
 	//GET /:id
-	if(securityFunction){
-		app.get(config.baseApi+':id', securityFunction, function(req, res) {
-			console.log("GET "+config.baseApi+req.params.id);
-			service.getById(req.params.id, req.principal).then(function(object){
-					res.json(convert(object));
-				}, 
-				function(error){
-					console.log("error" +error);
-					res.sendStatus(error).send(error);
-				}
-			);	
-		});
-	}else{
-		app.get(config.baseApi+':id', function(req, res) {
-			console.log("GET "+config.baseApi+req.params.id);
-			service.getById(req.params.id).then(function(object){
-					res.json(convert(object));
-				}, 
-				function(error){
-					console.log("error" +error);
-					res.sendStatus(error);
-				}
-			);	
-		});
-	}
-
-	//DELETE /:id
-	if(securityFunction){
-		app.delete(config.baseApi+':id',securityFunction, function(req, res) {
-			console.log("DELETE "+config.baseApi+req.params.id);
-			service.deleteById(req.params.id, req.principal).then(function(){
-					res.send();
-				}, 
-				function(error){
-					res.sendStatus(error);
-				}
-			);	
-		});
-	}else{
-			app.delete(config.baseApi+':id', function(req, res) {
-			console.log("DELETE "+config.baseApi+req.params.id);
-			service.deleteById(req.params.id).then(function(){
-					res.send();
-				}, 
-				function(error){
-					res.sendStatus(error);
-				}
-			);	
-		});
-	}
-
-	//POST /
-	app.post(config.baseApi, function(req, res) {
-		console.log("POST "+config.baseApi);
-		service.create(req.body).then(function(object){
+	declareIfNecessary("get", config.baseApi+':id', function(req, res){
+		console.log("GET "+config.baseApi+req.params.id);
+		service.getById(req.params.id, req.principal).then(function(object){
 				res.json(convert(object));
 			}, 
 			function(error){
+				console.log("error " +error);
+				res.sendStatus(error).send(error);
+			}
+		);	
+	});
+	
+	//DELETE /:id
+	declareIfNecessary("delete", config.baseApi+':id', function(req, res){
+		console.log("DELETE "+config.baseApi+req.params.id);
+		service.deleteById(req.params.id).then(function(){
+				res.send();
+			}, 
+			function(error){
+				console.log("error " +error);
 				res.sendStatus(error);
 			}
 		);	
 	});
 
+	//POST /
+	declareIfNecessary("post", config.baseApi, function(req, res){
+		console.log("POST "+config.baseApi);
+		service.create(req.body).then(function(object){
+				res.json(convert(object));
+			}, 
+			function(error){
+				console.log("error " +error);
+				res.sendStatus(error);
+			}
+		);
+	});
+
 
 	//PUT /:id
-	if(securityFunction){
-		app.put(config.baseApi+':id', securityFunction, function(req, res) {
-			console.log("PUT "+config.baseApi+req.params.id);
-			service.update(req.params.id, req.body, req.principal).then(function(object){
-					res.json(convert(object));
-				}, 
-				function(error){
-					console.log("error" +error);
-					res.sendStatus(error);
-				}
-			);	
-		});
-	}else{
-		app.put(config.baseApi+':id', function(req, res) {
+	declareIfNecessary("put", config.baseApi, function(req, res){
 		console.log("PUT "+config.baseApi+req.params.id);
-		service.update(req.params.id, req.body).then(function(object){
+		service.update(req.params.id, req.body, req.principal).then(function(object){
 				res.json(convert(object));
 			}, 
 			function(error){
@@ -333,8 +295,7 @@ module.exports = function init(config, modelStructure, app, checkConnectedFuncti
 				res.sendStatus(error);
 			}
 		);	
-	});  
-	}
+	});
 
 	for(var i = 0; i < filesApi.length; i++){
 		registerSubFieldFile(filesApi[i]);
