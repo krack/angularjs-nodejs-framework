@@ -24,7 +24,7 @@ export class CrudService<T extends IdentifiedElement> {
                     .catch(this.handleError);
   }
 
-  private extractData(res: Response) {
+  protected extractData(res: Response) {
     let body = res.json();    
     console.log(body);
     return body || { };

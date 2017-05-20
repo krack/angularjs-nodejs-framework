@@ -1,4 +1,4 @@
-import { Http, RequestOptions } from '@angular/http';
+import { Http, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -10,7 +10,7 @@ export declare class CrudService<T extends IdentifiedElement> {
     protected options: RequestOptions;
     constructor(url: string, http: Http);
     getAlls(): Observable<T[]>;
-    private extractData(res);
+    protected extractData(res: Response): any;
     private handleError(error);
     getById(id: String): Observable<T>;
     add(element: T): Observable<T>;
