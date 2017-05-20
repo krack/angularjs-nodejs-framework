@@ -285,7 +285,7 @@ module.exports = function init(config, modelStructure, app, checkConnectedFuncti
 
 
 	//PUT /:id
-	declareIfNecessary("put", config.baseApi, function(req, res){
+	declareIfNecessary("put", config.baseApi+':id', function(req, res){
 		console.log("PUT "+config.baseApi+req.params.id);
 		service.update(req.params.id, req.body, req.principal).then(function(object){
 				res.json(convert(object));
