@@ -68,6 +68,7 @@ module.exports = function init(configuration, app) {
 		"api" : {
 			"delete": "a",
 			"get": "m",
+			"put": "o",
 		}
 	}
 	

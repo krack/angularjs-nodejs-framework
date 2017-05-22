@@ -1,0 +1,6 @@
+<div>
+	<span >{{element.displayName}}</span>
+
+	<button *ngIf="!element.administrator" class="admin" (click)="switchAdministrator($event)" i18n="make administrator button" >make administrator</button>
+	<button *ngIf="element.administrator" class="admin" (click)="switchAdministrator($event)" i18n="make administrator button" >retire administrator</button>
+</div>

@@ -2,6 +2,8 @@
 export * from './client/components/login/login.component';
 export * from './client/components/files-uploader/files-uploader.component';
 export * from './client/components/files-uploader/file';
+export * from './client/components/users/users-list/users-list.component';
+export * from './client/components/users/users-list-element/users-list-element.component';
 export * from './client/services/crud-service.service';
 //part of components
 export * from './client/abstract-components/error-component';

@@ -1,0 +1,5 @@
+<div>
+	<users-list-element [element]="user" *ngFor="let user of elements" [elements]="elements"></users-list-element>
+
+	<div *ngIf="elements?.length===0">no users</div>
+</div>
