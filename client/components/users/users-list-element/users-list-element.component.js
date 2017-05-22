@@ -22,7 +22,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ElementComponent } from '../../../abstract-components/elements-component';
 ;
 import { User } from '../../../services/user';
-import { CrudService } from '../../../services/crud-service.service';
+import { UsersService } from '../../../services/users.service';
 var UsersListElementComponent = (function (_super) {
     __extends(UsersListElementComponent, _super);
     function UsersListElementComponent(usersService, router, route) {
@@ -55,9 +55,9 @@ UsersListElementComponent = __decorate([
         selector: 'users-list-element',
         templateUrl: './users-list-element.component.html',
         styleUrls: ['./users-list-element.component.scss'],
-        providers: [CrudService]
+        providers: [UsersService]
     }),
-    __metadata("design:paramtypes", [CrudService, Router, ActivatedRoute])
+    __metadata("design:paramtypes", [UsersService, Router, ActivatedRoute])
 ], UsersListElementComponent);
 export { UsersListElementComponent };
 //# sourceMappingURL=/home/krack/projects/angularjs-nodejs-framework/client/components/users/users-list-element/users-list-element.component.js.map

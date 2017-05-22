@@ -20,7 +20,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListElements } from '../../../abstract-components/list-elements';
-import { CrudService } from '../../../services/crud-service.service';
+import { UsersService } from '../../../services/users.service';
 var UsersListComponent = (function (_super) {
     __extends(UsersListComponent, _super);
     function UsersListComponent(usersService, router) {
@@ -33,9 +33,9 @@ UsersListComponent = __decorate([
         selector: 'users-list',
         templateUrl: './users-list.component.html',
         styleUrls: ['./users-list.component.scss'],
-        providers: []
+        providers: [UsersService]
     }),
-    __metadata("design:paramtypes", [CrudService, Router])
+    __metadata("design:paramtypes", [UsersService, Router])
 ], UsersListComponent);
 export { UsersListComponent };
 //# sourceMappingURL=/home/krack/projects/angularjs-nodejs-framework/client/components/users/users-list/users-list.component.js.map

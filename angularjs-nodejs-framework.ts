@@ -7,6 +7,7 @@ export * from './client/components/users/users-list-element/users-list-element.c
 //services
 export * from './client/services/indentified-element';
 export * from './client/services/crud-service.service';
+export * from './client/services/users.service';
 export * from './client/services/user';
 //part of components
 export * from './client/abstract-components/error-component';
