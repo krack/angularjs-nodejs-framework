@@ -7,13 +7,14 @@ import 'rxjs/add/operator/map';
 
 import { CrudService } from './crud-service.service';
 import { User } from './user';
+import { AppSettings } from '../config/appSettings';
 
-
+@Injectable()
 export class UsersService extends CrudService<User>{
   private connectedUser: Observable<User>;
 
-  constructor (protected baseApi:string, http: Http) {
-    super(baseApi+'users/', http);
+  constructor (http: Http) {
+    super(AppSettings.API_ENDPOINT+'users/', http);
   }
 
 
@@ -24,7 +25,7 @@ export class UsersService extends CrudService<User>{
 
         observer.next(null);
 
-        this.http.get(this.baseApi+'me', this.options)
+        this.http.get(AppSettings.API_ENDPOINT+'me', this.options)
         .map(this.extractData)
         .subscribe(
           result => {

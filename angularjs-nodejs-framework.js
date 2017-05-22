@@ -11,4 +11,6 @@ export * from './client/services/user';
 export * from './client/abstract-components/error-component';
 export * from './client/abstract-components/elements-component';
 export * from './client/abstract-components/list-elements';
+//constante
+export * from './client/config/appSettings';
 //# sourceMappingURL=/home/krack/projects/angularjs-nodejs-framework/angularjs-nodejs-framework.js.map
