@@ -9,8 +9,6 @@ import { CrudService } from './crud-service.service';
 import { User } from './user';
 
 
-
-@Injectable()
 export class UsersService extends CrudService<User>{
   private connectedUser: Observable<User>;
 
