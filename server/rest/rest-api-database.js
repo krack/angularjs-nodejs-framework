@@ -318,6 +318,10 @@ module.exports = function init(config, modelStructure, app, checkConnectedFuncti
 				filesApi.push(structure);
 			}else if(structure.type === "List"){
 				shemaConfiguration[structure.name] = [extractShema(structure.shema)];
+			}else if(structure.type === "Strings"){
+				shemaConfiguration[structure.name] = [String];
+			}else if(structure.type === "Numbers"){
+				shemaConfiguration[structure.name] = [Number];
 			}else if(structure.type === "Object"){
 				shemaConfiguration[structure.name] = extractShema(structure.shema);
 			}else{
