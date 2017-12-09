@@ -233,7 +233,7 @@ module.exports = function init(config, modelStructure, app, checkConnectedFuncti
 	//GET /
 	declareIfNecessary("get", config.baseApi, function(req, res){
 		console.log("GET "+config.baseApi);
-		service.getAll().then(function(list){
+		service.getAll(req.principal).then(function(list){
 				res.json(list);
 			}, 
 			function(error){
@@ -260,7 +260,7 @@ module.exports = function init(config, modelStructure, app, checkConnectedFuncti
 	//DELETE /:id
 	declareIfNecessary("delete", config.baseApi+':id', function(req, res){
 		console.log("DELETE "+config.baseApi+req.params.id);
-		service.deleteById(req.params.id).then(function(){
+		service.deleteById(req.params.id, req.principal).then(function(){
 				res.send();
 			}, 
 			function(error){
@@ -273,7 +273,7 @@ module.exports = function init(config, modelStructure, app, checkConnectedFuncti
 	//POST /
 	declareIfNecessary("post", config.baseApi, function(req, res){
 		console.log("POST "+config.baseApi);
-		service.create(req.body).then(function(object){
+		service.create(req.body, req.principal).then(function(object){
 				res.json(convert(object));
 			}, 
 			function(error){
