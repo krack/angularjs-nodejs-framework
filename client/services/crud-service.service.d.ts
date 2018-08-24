@@ -11,7 +11,7 @@ export declare class CrudService<T extends IdentifiedElement> {
     constructor(url: string, http: Http);
     getAlls(): Observable<T[]>;
     protected extractData(res: Response): any;
-    private handleError(error);
+    private handleError;
     getById(id: String): Observable<T>;
     add(element: T): Observable<T>;
     updateElement(element: T): Observable<T>;

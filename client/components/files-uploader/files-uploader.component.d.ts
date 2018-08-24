@@ -14,5 +14,5 @@ export declare class FilesUploaderComponent implements OnInit {
     constructor(http: Http, domSanitizer: DomSanitizer);
     ngOnInit(): void;
     deleteFile(event: any, file: File): void;
-    private photoURL(url);
+    private photoURL;
 }

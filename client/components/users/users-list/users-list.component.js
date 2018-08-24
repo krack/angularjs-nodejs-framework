@@ -21,21 +21,21 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListElements } from '../../../abstract-components/list-elements';
 import { UsersService } from '../../../services/users.service';
-var UsersListComponent = (function (_super) {
+var UsersListComponent = /** @class */ (function (_super) {
     __extends(UsersListComponent, _super);
     function UsersListComponent(usersService, router) {
         return _super.call(this, usersService, router) || this;
     }
+    UsersListComponent = __decorate([
+        Component({
+            selector: 'users-list',
+            templateUrl: './users-list.component.html',
+            styleUrls: ['./users-list.component.scss'],
+            providers: [UsersService]
+        }),
+        __metadata("design:paramtypes", [UsersService, Router])
+    ], UsersListComponent);
     return UsersListComponent;
 }(ListElements));
-UsersListComponent = __decorate([
-    Component({
-        selector: 'users-list',
-        templateUrl: './users-list.component.html',
-        styleUrls: ['./users-list.component.scss'],
-        providers: [UsersService]
-    }),
-    __metadata("design:paramtypes", [UsersService, Router])
-], UsersListComponent);
 export { UsersListComponent };
 //# sourceMappingURL=/home/krack/projects/angularjs-nodejs-framework/client/components/users/users-list/users-list.component.js.map

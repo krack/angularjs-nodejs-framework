@@ -12,7 +12,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UUID } from 'angular2-uuid';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
-var FilesUploaderComponent = (function () {
+var FilesUploaderComponent = /** @class */ (function () {
     function FilesUploaderComponent(http, domSanitizer) {
         this.http = http;
         this.domSanitizer = domSanitizer;
@@ -42,28 +42,28 @@ var FilesUploaderComponent = (function () {
     FilesUploaderComponent.prototype.photoURL = function (url) {
         return this.domSanitizer.bypassSecurityTrustUrl(url);
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", Array)
+    ], FilesUploaderComponent.prototype, "list", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", String)
+    ], FilesUploaderComponent.prototype, "endpoint", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean)
+    ], FilesUploaderComponent.prototype, "readonly", void 0);
+    FilesUploaderComponent = __decorate([
+        Component({
+            selector: 'files-uploader',
+            templateUrl: './files-uploader.component.html',
+            styleUrls: ['./files-uploader.component.scss'],
+            providers: [FileSelectDirective]
+        }),
+        __metadata("design:paramtypes", [Http, DomSanitizer])
+    ], FilesUploaderComponent);
     return FilesUploaderComponent;
 }());
-__decorate([
-    Input(),
-    __metadata("design:type", Array)
-], FilesUploaderComponent.prototype, "list", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", String)
-], FilesUploaderComponent.prototype, "endpoint", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Boolean)
-], FilesUploaderComponent.prototype, "readonly", void 0);
-FilesUploaderComponent = __decorate([
-    Component({
-        selector: 'files-uploader',
-        templateUrl: './files-uploader.component.html',
-        styleUrls: ['./files-uploader.component.scss'],
-        providers: [FileSelectDirective]
-    }),
-    __metadata("design:paramtypes", [Http, DomSanitizer])
-], FilesUploaderComponent);
 export { FilesUploaderComponent };
 //# sourceMappingURL=/home/krack/projects/angularjs-nodejs-framework/client/components/files-uploader/files-uploader.component.js.map

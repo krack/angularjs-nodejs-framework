@@ -1,4 +1,4 @@
-var User = (function () {
+var User = /** @class */ (function () {
     function User(_id, displayName, administrator, owner) {
         this._id = _id;
         this.displayName = displayName;

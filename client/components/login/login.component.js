@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-var LoginComponent = (function () {
+var LoginComponent = /** @class */ (function () {
     function LoginComponent(route) {
         this.route = route;
     }
@@ -19,15 +19,15 @@ var LoginComponent = (function () {
             window.location.href = data.baseUrl + 'auth/facebook';
         });
     };
+    LoginComponent = __decorate([
+        Component({
+            selector: 'app-login',
+            templateUrl: './login.component.html',
+            styleUrls: ['./login.component.scss']
+        }),
+        __metadata("design:paramtypes", [ActivatedRoute])
+    ], LoginComponent);
     return LoginComponent;
 }());
-LoginComponent = __decorate([
-    Component({
-        selector: 'app-login',
-        templateUrl: './login.component.html',
-        styleUrls: ['./login.component.scss']
-    }),
-    __metadata("design:paramtypes", [ActivatedRoute])
-], LoginComponent);
 export { LoginComponent };
 //# sourceMappingURL=/home/krack/projects/angularjs-nodejs-framework/client/components/login/login.component.js.map

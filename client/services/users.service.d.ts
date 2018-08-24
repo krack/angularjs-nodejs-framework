@@ -6,7 +6,8 @@ import 'rxjs/add/operator/map';
 import { CrudService } from './crud-service.service';
 import { User } from './user';
 export declare class UsersService extends CrudService<User> {
-    private connectedUser;
+    private static connectedUser;
+    private static user;
     constructor(http: Http);
     getConnectedUser(): Observable<User>;
 }

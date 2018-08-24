@@ -1,4 +1,4 @@
-var ErrorComponent = (function () {
+var ErrorComponent = /** @class */ (function () {
     function ErrorComponent(router) {
         this.router = router;
     }

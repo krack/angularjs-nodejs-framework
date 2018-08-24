@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
-var CrudService = (function () {
+var CrudService = /** @class */ (function () {
     function CrudService(url, http) {
         this.http = http;
         this.url = url;

@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 import { Observable } from 'rxjs/Observable';
 import { ErrorComponent } from './error-component';
-var ElementComponent = (function (_super) {
+var ElementComponent = /** @class */ (function (_super) {
     __extends(ElementComponent, _super);
     function ElementComponent(baseView, serviceCrud, router, route) {
         var _this = _super.call(this, router) || this;

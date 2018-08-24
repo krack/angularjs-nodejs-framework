@@ -1,4 +1,4 @@
-var File = (function () {
+var File = /** @class */ (function () {
     function File(_id, href) {
         this._id = _id;
         this.href = href;

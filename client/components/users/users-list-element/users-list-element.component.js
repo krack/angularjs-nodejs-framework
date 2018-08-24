@@ -23,7 +23,7 @@ import { ElementComponent } from '../../../abstract-components/elements-componen
 ;
 import { User } from '../../../services/user';
 import { UsersService } from '../../../services/users.service';
-var UsersListElementComponent = (function (_super) {
+var UsersListElementComponent = /** @class */ (function (_super) {
     __extends(UsersListElementComponent, _super);
     function UsersListElementComponent(usersService, router, route) {
         return _super.call(this, "/users/", usersService, router, route) || this;
@@ -40,24 +40,24 @@ var UsersListElementComponent = (function (_super) {
         }
         this.crudService.updateElement(this.element).subscribe();
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", User)
+    ], UsersListElementComponent.prototype, "element", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Array)
+    ], UsersListElementComponent.prototype, "elements", void 0);
+    UsersListElementComponent = __decorate([
+        Component({
+            selector: 'users-list-element',
+            templateUrl: './users-list-element.component.html',
+            styleUrls: ['./users-list-element.component.scss'],
+            providers: [UsersService]
+        }),
+        __metadata("design:paramtypes", [UsersService, Router, ActivatedRoute])
+    ], UsersListElementComponent);
     return UsersListElementComponent;
 }(ElementComponent));
-__decorate([
-    Input(),
-    __metadata("design:type", User)
-], UsersListElementComponent.prototype, "element", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Array)
-], UsersListElementComponent.prototype, "elements", void 0);
-UsersListElementComponent = __decorate([
-    Component({
-        selector: 'users-list-element',
-        templateUrl: './users-list-element.component.html',
-        styleUrls: ['./users-list-element.component.scss'],
-        providers: [UsersService]
-    }),
-    __metadata("design:paramtypes", [UsersService, Router, ActivatedRoute])
-], UsersListElementComponent);
 export { UsersListElementComponent };
 //# sourceMappingURL=/home/krack/projects/angularjs-nodejs-framework/client/components/users/users-list-element/users-list-element.component.js.map

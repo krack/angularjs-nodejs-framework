@@ -25,30 +25,38 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import { CrudService } from './crud-service.service';
 import { AppSettings } from '../config/appSettings';
-var UsersService = (function (_super) {
+var UsersService = /** @class */ (function (_super) {
     __extends(UsersService, _super);
     function UsersService(http) {
         return _super.call(this, AppSettings.API_ENDPOINT + 'users/', http) || this;
     }
+    UsersService_1 = UsersService;
     UsersService.prototype.getConnectedUser = function () {
         var _this = this;
-        if (!this.connectedUser) {
-            this.connectedUser = new Observable(function (observer) {
-                observer.next(null);
-                _this.http.get(AppSettings.API_ENDPOINT + 'me', _this.options)
-                    .map(_this.extractData)
-                    .subscribe(function (result) {
-                    observer.next(result);
-                }, function (error) { return observer.error(error.status); });
+        if (!UsersService_1.connectedUser) {
+            UsersService_1.connectedUser = new Observable(function (observer) {
+                if (!UsersService_1.user) {
+                    observer.next(null);
+                    _this.http.get(AppSettings.API_ENDPOINT + 'me', _this.options)
+                        .map(_this.extractData)
+                        .subscribe(function (result) {
+                        observer.next(result);
+                        UsersService_1.user = result;
+                    }, function (error) { return observer.error(error.status); });
+                }
+                else {
+                    observer.next(UsersService_1.user);
+                }
             });
         }
-        return this.connectedUser;
+        return UsersService_1.connectedUser;
     };
+    var UsersService_1;
+    UsersService = UsersService_1 = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [Http])
+    ], UsersService);
     return UsersService;
 }(CrudService));
-UsersService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [Http])
-], UsersService);
 export { UsersService };
 //# sourceMappingURL=/home/krack/projects/angularjs-nodejs-framework/client/services/users.service.js.map
