@@ -40,13 +40,8 @@ var UsersListElementComponent = /** @class */ (function (_super) {
         }
         this.crudService.updateElement(this.element).subscribe();
     };
-    UsersListElementComponent.prototype.removeUser = function () {
-        var _this = this;
-        this.crudService.deleteById(this.element._id).subscribe(function () {
-            _this.elements = _this.elements.filter(function (user) {
-                return _this.element._id !== user._id;
-            });
-        });
+    UsersListElementComponent.prototype.removeUser = function (event) {
+        this.deleteElement(event);
     };
     __decorate([
         Input(),
