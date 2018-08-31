@@ -37,6 +37,10 @@ export class UsersListElementComponent extends ElementComponent<User> implements
   }
 
   removeUser() {
-    this.crudService.deleteById(this.element._id);
+    this.crudService.deleteById(this.element._id).subscribe(() => {
+      this.elements = this.elements.filter((user: User) => {
+        return this.element._id !== user._id;
+      });
+    });
   }
 }
