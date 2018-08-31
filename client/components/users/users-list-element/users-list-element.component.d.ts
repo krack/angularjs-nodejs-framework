@@ -9,4 +9,5 @@ export declare class UsersListElementComponent extends ElementComponent<User> im
     constructor(usersService: UsersService, router: Router, route: ActivatedRoute);
     ngOnInit(): void;
     switchAdministrator(): void;
+    removeUser(): void;
 }

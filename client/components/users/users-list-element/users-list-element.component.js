@@ -40,6 +40,9 @@ var UsersListElementComponent = /** @class */ (function (_super) {
         }
         this.crudService.updateElement(this.element).subscribe();
     };
+    UsersListElementComponent.prototype.removeUser = function () {
+        this.crudService.deleteById(this.element._id);
+    };
     __decorate([
         Input(),
         __metadata("design:type", User)
