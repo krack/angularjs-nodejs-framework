@@ -95,7 +95,7 @@ module.exports = function init(configuration, app) {
 			}
 		));
 
-		app.get('/auth/facebook', passport.authenticate('facebook', { authType: 'rerequest', scope: ['user_friends'] }));
+		app.get('/auth/facebook', passport.authenticate('facebook', { authType: 'rerequest', scope: [] }));
 		app.get('/auth/facebook/callback', passport.authenticate('facebook'), function (req, res) {
 
 			serviceUser.find({ "facebookId": req.user.id }).then(function (users) {
